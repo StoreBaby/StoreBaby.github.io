@@ -111,13 +111,14 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="space-y-1">
                             <label class="block text-sm font-bold text-gray-700">الاسم واللقب</label>
-                            <input type="text" name="FullName" placeholder="فاطمة ...."
+                            <input type="text" name="FullName" placeholder="الاسم الكامل"
                                 class="w-full px-4 py-4 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-pink-500 outline-none"
                                 required>
                         </div>
                         <div class="space-y-1">
                             <label class="block text-sm font-bold text-gray-700">رقم الهاتف</label>
-                            <input type="tel" name="Phone" placeholder="05 / 06 / 07" dir="ltr"
+                            <input type="tel" autocomplete="tel" name="Phone" placeholder="05 / 06 / 07" dir="ltr"
+                                maxlength="10" pattern="0[567][0-9]{8}"
                                 class="w-full px-4 py-4 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-pink-500 outline-none text-right"
                                 required>
                         </div>
@@ -142,8 +143,8 @@
                     </div>
 
                     <div class="space-y-1">
-                        <label class="block text-sm font-bold text-gray-700">اسم المولود (اختياري)</label>
-                        <input type="text" name="BabyName" placeholder="الاسم الذي تودين وضعه في الهدية"
+                        <label class="block text-sm font-bold text-gray-700">اسم المولود</label>
+                        <input type="text" name="BabyName" placeholder="الاسم الذي تودين وضعه في الهدية" required
                             class="w-full px-4 py-4 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-pink-500 outline-none">
                     </div>
 
@@ -182,7 +183,7 @@
                         class="w-full bg-pink-600 text-white font-extrabold py-5 rounded-2xl hover:bg-pink-700 transition shadow-lg mt-6 text-xl">
                         تأكيد الطلب
                     </button>
-                    <p class="text-center text-xs text-gray-400">التوصيل متوفر لجميع الولايات - الدفع يد بيد</p>
+                    <p class="text-center text-xs text-gray-400">التوصيل متوفر لجميع الولايات - الدفع عند الإستلام</p>
                 </form>
             </div>
         </div>
