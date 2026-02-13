@@ -92,7 +92,7 @@ wilayaSelect.addEventListener('change', function () {
 });
 
 // Submission
-const scriptURL = 'YOUR_GOOGLE_SCRIPT_WEB_APP_URL_HERE'; // ضعي الرابط هنا
+const scriptURL = 'https://script.google.com/macros/s/AKfycbyG7YiY9ffnuCFLgarR0vJXRyLnTZacvggA6f7LkI3ZpA9FIlqy7bttUEK3Orodl4mN/exec'; // ضعي الرابط هنا
 const form = document.getElementById('orderForm');
 const btn = document.getElementById('submitBtn');
 
