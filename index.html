@@ -36,20 +36,22 @@
     </style>
     <!-- Meta Pixel Code -->
     <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '4121366498116035');
-    fbq('track', 'PageView');
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '4121366498116035');
+        fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=4121366498116035&ev=PageView&noscript=1"
-    /></noscript>
+            src="https://www.facebook.com/tr?id=4121366498116035&ev=PageView&noscript=1" /></noscript>
     <!-- End Meta Pixel Code -->
 </head>
 
@@ -196,8 +198,8 @@
                         </div>
                     </div>
 
-                    <button type="submit" id="submitBtn"
-                        class="w-full bg-pink-600 text-white font-extrabold py-5 rounded-2xl hover:bg-pink-700 transition shadow-lg mt-6 text-xl">
+                    <button type="submit" id="submitBtn" disabled
+                        class="w-full bg-pink-600 text-white font-extrabold py-5 rounded-2xl hover:bg-pink-700 transition shadow-lg mt-6 text-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-pink-600">
                         تأكيد الطلب
                     </button>
                     <p class="text-center text-xs text-gray-400">التوصيل متوفر لجميع الولايات - الدفع عند الإستلام</p>
