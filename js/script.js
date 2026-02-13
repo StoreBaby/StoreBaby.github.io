@@ -100,8 +100,9 @@ form.addEventListener('submit', e => {
     e.preventDefault();
     btn.disabled = true;
     btn.innerText = "جاري الحفظ...";
-
-    fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+    const formData = new FormData(form);
+    formData.append('Price', 4900);
+    fetch(scriptURL, { method: 'POST', body: formData })
         .then(response => {
             alert("تم استلام طلبكِ بنجاح! 🎁 سنتصل بكِ قريباً لتأكيد الإرسال.");
             btn.disabled = false;
