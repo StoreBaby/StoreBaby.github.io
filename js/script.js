@@ -96,6 +96,14 @@ const scriptURL = 'https://script.google.com/macros/s/AKfycbyG7YiY9ffnuCFLgarR0v
 const form = document.getElementById('orderForm');
 const btn = document.getElementById('submitBtn');
 
+// Validation
+const checkFormValidity = () => {
+    btn.disabled = !form.checkValidity();
+};
+
+form.addEventListener('input', checkFormValidity);
+form.addEventListener('change', checkFormValidity);
+
 form.addEventListener('submit', e => {
     e.preventDefault();
     btn.disabled = true;
