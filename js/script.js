@@ -58,7 +58,11 @@ const ALGERIA_DATA = {
     "57 - أولاد جلال": ["أولاد جلال", "الفيض", "الحاجب", "المزيرعة", "بسكرة", "طولقة"],
     "58 - عين صالح": ["عين صالح", "تيمياوين", "المطارفة", "السبع", "العوينات"]
 };
-const wilayaSelect = document.getElementById('wilayaSelect');
+// Wait, I shouldn't replace the huge object if I can avoid it. 
+// I'll insert ERROR_MESSAGES before `const wilayaSelect`. 
+// BUT `replace_file_content` works on existing content.
+// Better strategy: Insert ERROR_MESSAGES *before* `const wilayaSelect` by targeting `const wilayaSelect`.
+
 const baladyaSelect = document.getElementById('baladyaSelect');
 
 wilayaSelect.addEventListener('click', function () {
@@ -97,11 +101,159 @@ const form = document.getElementById('orderForm');
 const btn = document.getElementById('submitBtn');
 
 // Validation
+
+// Validation
+const validateInput = (input) => {
+    if (input.type === 'submit' || input.type === 'button') return;
+
+    let targetLabel;
+
+    // Find the label to attach the success icon to
+    if (input.type === 'radio') {
+        const container = input.closest('.space-y-2');
+        if (container) {
+            // In the HTML structure for Gender/Delivery, the main label is the first child of the container
+            targetLabel = container.querySelector('label.block');
+        }
+    } else {
+        // For standard inputs (div.space-y-1 > label + input)
+        const container = input.closest('.space-y-1');
+        if (container) {
+            targetLabel = container.querySelector('label');
+        }
+    }
+
+    // Helper to manage the error message element
+    const manageErrorMsg = (isValid, msg) => {
+        // Error container: for radio it's the group container, for others it's the parent div
+        let errorContainer = input.type === 'radio' ? input.closest('.space-y-2') : input.parentElement;
+
+        // Look for existing error message
+        let errorEl = errorContainer.querySelector('.validation-error');
+
+        if (!isValid) {
+            if (!errorEl) {
+                errorEl = document.createElement('p');
+                errorEl.className = 'validation-error text-red-500 text-xs mt-1 font-bold';
+                errorContainer.appendChild(errorEl);
+            }
+            errorEl.textContent = msg;
+        } else {
+            if (errorEl) {
+                errorEl.remove();
+            }
+        }
+    };
+
+    // Helper to manage success icon
+    const manageSuccessIcon = (isValid) => {
+        if (!targetLabel) return;
+
+        let icon = targetLabel.querySelector('.fa-circle-check');
+        if (isValid) {
+            if (!icon) {
+                icon = document.createElement('i');
+                icon.className = 'fa-solid fa-circle-check text-green-500 mr-2'; // mr-2 for RTL spacing
+                targetLabel.appendChild(icon);
+            }
+        } else {
+            if (icon) {
+                icon.remove();
+            }
+        }
+    };
+
+    // Clean up old border classes if they exist
+    if (input.classList.contains('border-pink-500')) {
+        input.classList.remove('border-pink-500', 'focus:ring-pink-500', 'border-green-500', 'focus:ring-green-500', 'ring-1', 'ring-pink-500', 'ring-green-500');
+    }
+    // Clean up radio parent border classes
+    if (input.type === 'radio' && input.parentElement.classList.contains('border-pink-500')) {
+        input.parentElement.classList.remove('border-pink-500', 'focus:ring-pink-500', 'border-green-500', 'focus:ring-green-500', 'ring-1', 'ring-pink-500', 'ring-green-500');
+    }
+
+    // Check Validity
+    // Check Validity
+    let isValid = input.checkValidity();
+    let validationMessage = input.validationMessage;
+    const ERROR_MESSAGES = {
+        Phone: {
+            valueMissing: "يرجى إدخال رقم الهاتف",
+            patternMismatch: "يرجى إدخال رقم هاتف صحيح", // Edit this
+            // ...
+        },
+        FullName: {
+            valueMissing: "يرجى إدخال الاسم الكامل",
+        },
+        Wilaya: {
+            valueMissing: "يرجى إدخال الولاية",
+        },
+        Baladya: {
+            valueMissing: "يرجى إدخال البلدية",
+        },
+        Address: {
+            valueMissing: "يرجى إدخال العنوان",
+        },
+
+
+        // ...
+    };
+
+
+    // Use Custom Error Messages if available
+    if (!isValid && ERROR_MESSAGES[input.name]) {
+        const errors = ERROR_MESSAGES[input.name];
+        if (input.validity.valueMissing && errors.valueMissing) {
+            validationMessage = errors.valueMissing;
+        } else if (input.validity.patternMismatch && errors.patternMismatch) {
+            validationMessage = errors.patternMismatch;
+        } else if (input.validity.tooShort && errors.tooShort) {
+            validationMessage = errors.tooShort;
+        } else {
+            validationMessage = errors.default || validationMessage;
+        }
+    }
+
+    if (input.type === 'radio') {
+        const name = input.name;
+        const radios = document.querySelectorAll(`input[name="${name}"]`);
+        // If any radio in the group is checked, it's valid (for 'required')
+        const isGroupValid = Array.from(radios).some(r => r.checked);
+
+        isValid = isGroupValid;
+
+        if (!isGroupValid && ERROR_MESSAGES[name]) {
+            validationMessage = ERROR_MESSAGES[name].valueMissing || ERROR_MESSAGES[name].default || "يرجى اختيار قيمة";
+        } else if (isGroupValid) {
+            validationMessage = "";
+        }
+
+        // IMPORTANT: For radio groups, we want to update the UI for the *group*, 
+        // regardless of which specific radio triggered the event (or if it was a form submit).
+        // Since we attached the error/icon to the container/main label, running this once per group is enough,
+        // but 'input' event fires on the specific radio.
+    }
+
+    manageSuccessIcon(isValid);
+    manageErrorMsg(isValid, validationMessage);
+};
+
 const checkFormValidity = () => {
     btn.disabled = !form.checkValidity();
 };
 
-form.addEventListener('input', checkFormValidity);
+// Add listeners to all inputs for visual feedback
+const inputs = form.querySelectorAll('input, select, textarea');
+inputs.forEach(input => {
+    const validate = () => {
+        validateInput(input);
+        checkFormValidity();
+    };
+
+    input.addEventListener('blur', validate);
+    input.addEventListener('input', validate);
+});
+
 form.addEventListener('change', checkFormValidity);
 
 form.addEventListener('submit', e => {
