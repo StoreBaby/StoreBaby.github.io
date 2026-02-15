@@ -7,6 +7,7 @@
     <title>فرحة المولود | أطقم مواليد فاخرة 🇩🇿</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta name="description"
         content="أطقم مواليد فاخرة في الجزائر - تسوقي أفضل ملابس الرضع حديثي الولادة بجودة عالية وأسعار مميزة. توصيل لجميع الولايات.">
     <meta name="keywords" content="ملابس مواليد, أطقم رضع, هدايا مواليد, الجزائر, بيبي, رضيع, ملابس أطفال, توصيل">
@@ -15,6 +16,7 @@
         content="أفضل خيار للهدايا في الجزائر. قطن طبيعي 100% ناعم على بشرة الرضيع. اطلبي الآن!">
     <meta property="og:type" content="website">
     <script src="js/script.js" defer></script>
+    <script src="js/gallery.js" defer></script>
     <style>
         html {
             scroll-behavior: smooth;
@@ -32,6 +34,61 @@
             background-repeat: no-repeat;
             background-position: left 1rem center;
             background-size: 1em;
+        }
+
+        /* Slider Animation */
+        .slider {
+            height: 250px;
+            margin: auto;
+            position: relative;
+            width: 100%;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+        }
+
+        .slide-track {
+            display: flex;
+            width: calc(250px * 12);
+        }
+
+        .slide {
+            height: 250px;
+            width: 250px;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            perspective: 100px;
+        }
+
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        .slide img:hover {
+            transform: scale(1.1);
+            /* Subtle zoom on hover */
+        }
+
+        /* Pause animation on hover */
+        .slider:hover .slide-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(calc(-250px * 6));
+            }
         }
     </style>
     <!-- Meta Pixel Code -->
@@ -71,8 +128,9 @@
                 </div>
 
                 <!-- CTA Button -->
+
                 <a href="#order"
-                    class="bg-gradient-to-r from-pink-500 to-pink-600 text-white px-8 py-4 rounded-2xl shadow-xl transform hover:scale-105 transition duration-300 text-2xl font-bold flex items-center gap-2">
+                    class="bg-gradient-to-r relative animate-bounce from-pink-500 to-pink-600 text-white px-8 py-4 rounded-2xl shadow-xl transform hover:scale-105 transition duration-300 text-2xl font-bold flex items-center gap-2">
                     <span>اطلب الان</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -80,6 +138,7 @@
                             d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                     </svg>
                 </a>
+
             </div>
             <p class="text-gray-500 max-w-lg mx-auto italic font-medium">
                 ملابس قطنية ناعمة على بشرة رضيعك الحساسة،
@@ -88,31 +147,48 @@
         </div>
     </header>
 
-    <section class="py-10 container mx-auto px-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="rounded-3xl overflow-hidden shadow-lg bg-gray-200 h-full">
-                <img src="img/baby-female.jpg" class="w-full h-full object-cover" alt="طقم بناتي" loading="lazy"
-                    width="600" height="400">
-            </div>
-            <div class="rounded-3xl overflow-hidden shadow-lg bg-gray-200 h-full">
-                <img src="img/baby-male.jpg" class="w-full h-full object-cover" alt="طقم أولادي" loading="lazy"
-                    width="600" height="400">
-            </div>
-            <div class="rounded-3xl overflow-hidden shadow-lg bg-gray-200 h-full">
-                <img src="img/pack-baby-female.jpg" class="w-full h-full object-cover" alt="باكيط بناتي" loading="lazy"
-                    width="600" height="400">
-            </div>
-            <div class="rounded-3xl overflow-hidden shadow-lg bg-gray-200 h-full">
-                <img src="img/pack-baby-male.jpg" class="w-full h-full object-cover" alt="باكيط أولادي" loading="lazy"
-                    width="600" height="400">
-            </div>
-            <div class="rounded-3xl overflow-hidden shadow-lg bg-gray-200 h-full">
-                <img src="img/box-pack-baby-female.jpg" class="w-full h-full object-cover" alt="علبة هدايا بناتي"
-                    loading="lazy" width="600" height="400">
-            </div>
-            <div class="rounded-3xl overflow-hidden shadow-lg bg-gray-200 h-full">
-                <img src="img/box-pack-baby-male.jpg" class="w-full h-full object-cover" alt="علبة هدايا أولادي"
-                    loading="lazy" width="600" height="400">
+    <section class="py-10 bg-white overflow-hidden" dir="ltr"> <!-- Added dir="ltr" for consistent scroll direction -->
+        <div class="slider">
+            <div class="slide-track">
+                <!-- Original 6 Images -->
+                <div class="slide">
+                    <img src="img/baby-female.jpg" alt="طقم بناتي" loading="lazy">
+                </div>
+                <div class="slide">
+                    <img src="img/baby-male.jpg" alt="طقم أولادي" loading="lazy">
+                </div>
+                <div class="slide">
+                    <img src="img/pack-baby-female.jpg" alt="باكيط بناتي" loading="lazy">
+                </div>
+                <div class="slide">
+                    <img src="img/pack-baby-male.jpg" alt="باكيط أولادي" loading="lazy">
+                </div>
+                <div class="slide">
+                    <img src="img/box-pack-baby-female.jpg" alt="علبة هدايا بناتي" loading="lazy">
+                </div>
+                <div class="slide">
+                    <img src="img/box-pack-baby-male.jpg" alt="علبة هدايا أولادي" loading="lazy">
+                </div>
+
+                <!-- Duplicated 6 Images for Loop -->
+                <div class="slide">
+                    <img src="img/baby-female.jpg" alt="طقم بناتي" loading="lazy">
+                </div>
+                <div class="slide">
+                    <img src="img/baby-male.jpg" alt="طقم أولادي" loading="lazy">
+                </div>
+                <div class="slide">
+                    <img src="img/pack-baby-female.jpg" alt="باكيط بناتي" loading="lazy">
+                </div>
+                <div class="slide">
+                    <img src="img/pack-baby-male.jpg" alt="باكيط أولادي" loading="lazy">
+                </div>
+                <div class="slide">
+                    <img src="img/box-pack-baby-female.jpg" alt="علبة هدايا بناتي" loading="lazy">
+                </div>
+                <div class="slide">
+                    <img src="img/box-pack-baby-male.jpg" alt="علبة هدايا أولادي" loading="lazy">
+                </div>
             </div>
         </div>
     </section>
