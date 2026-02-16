@@ -17,6 +17,7 @@
     <meta property="og:type" content="website">
     <script src="js/script.js" defer></script>
     <script src="js/gallery.js" defer></script>
+    <script src="js/countdown.js" defer></script>
     <style>
         html {
             scroll-behavior: smooth;
@@ -123,8 +124,10 @@
 
             <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-6">
                 <!-- Price -->
-                <div class="text-[#ec4899]">
-                    <span class="text-4xl font-extrabold">4900 DA</span>
+                <div class="text-[#ec4899] flex flex-col items-center">
+                    <span class="text-gray-400 line-through text-2xl font-bold">5400 DA</span>
+                    <span class="text-5xl font-extrabold">4900 DA</span>
+                    <span class="text-red-500 font-bold text-lg mt-1 animate-pulse">عرض محدود 🔥</span>
                 </div>
 
                 <!-- CTA Button -->
@@ -140,10 +143,30 @@
                 </a>
 
             </div>
-            <p class="text-gray-500 max-w-lg mx-auto italic font-medium">
+            <p class="text-gray-500 max-w-lg mx-auto italic font-medium mb-6">
                 ملابس قطنية ناعمة على بشرة رضيعك الحساسة،
                 قبعة، رياقة ، قفازات ، ولهاية مخصصة بإسمك مع بيبرو زجاجي، كلش منظم وأنيق في طقم واحد.
             </p>
+
+            <!-- Countdown Timer -->
+            <div id="countdown" class="flex justify-center gap-4 text-center mb-8" dir="ltr">
+                <div class="bg-gray-800 text-white p-3 rounded-lg min-w-[70px]">
+                    <div id="days" class="text-2xl font-bold">03</div>
+                    <div class="text-xs text-gray-400">Days</div>
+                </div>
+                <div class="bg-gray-800 text-white p-3 rounded-lg min-w-[70px]">
+                    <div id="hours" class="text-2xl font-bold">00</div>
+                    <div class="text-xs text-gray-400">Hours</div>
+                </div>
+                <div class="bg-gray-800 text-white p-3 rounded-lg min-w-[70px]">
+                    <div id="minutes" class="text-2xl font-bold">00</div>
+                    <div class="text-xs text-gray-400">Minutes</div>
+                </div>
+                <div class="bg-gray-800 text-white p-3 rounded-lg min-w-[70px]">
+                    <div id="seconds" class="text-2xl font-bold">00</div>
+                    <div class="text-xs text-gray-400">Seconds</div>
+                </div>
+            </div>
         </div>
     </header>
 
