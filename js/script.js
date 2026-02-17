@@ -264,6 +264,10 @@ form.addEventListener('submit', e => {
     formData.append('Price', 4900);
     fetch(scriptURL, { method: 'POST', body: formData })
         .then(response => {
+            fbq('track', 'Purchase', {
+                value: 4900,
+                currency: 'DZD'
+            });
             alert("تم استلام طلبكِ بنجاح! 🎁 سنتصل بكِ قريباً لتأكيد الإرسال.");
             btn.disabled = false;
             btn.innerText = "تأكيد الطلب (4900 دج)";
